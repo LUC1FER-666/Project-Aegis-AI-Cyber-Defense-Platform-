@@ -1,0 +1,23 @@
+title: Potential DNS Tunneling
+id: d7f3e5c3-9b4c-5g7e-ad2f-fedcba654321
+status: experimental
+description: Detects DNS queries with characteristics of tunneling (long queries, high entropy, frequent TXT lookups)
+author: Aegis AI
+date: 2024/01/01
+tags:
+  - attack.t1071.004
+  - attack.command_and_control
+logsource:
+  category: dns_query
+detection:
+  selection_long_query:
+    query|re: '^.{50,}\.'
+  selection_txt_type:
+    record_type: TXT
+  selection_suspicious_domain:
+    query|re: '[0-9a-f]{20,}'
+  condition: 1 of selection*
+level: medium
+falsepositives:
+  - Legitimate long DNS queries for CDN or cloud services
+  - DKIM/SPF TXT record lookups

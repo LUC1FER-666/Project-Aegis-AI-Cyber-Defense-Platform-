@@ -1,0 +1,28 @@
+title: Network Connection to Non-Standard Port
+id: e8g4f6d4-0c5d-6h8f-be3g-012345789abc
+status: experimental
+description: Detects outbound network connections to ports commonly associated with malware C2 channels
+author: Aegis AI
+date: 2024/01/01
+tags:
+  - attack.t1571
+  - attack.command_and_control
+logsource:
+  category: network_connection
+detection:
+  selection_c2_ports:
+    dst_port:
+      - 4444
+      - 1337
+      - 31337
+      - 9999
+      - 6666
+      - 6667
+      - 8888
+  selection_high_port:
+    dst_port|re: '^(6[0-5][0-9][0-9][0-9]|655[0-3][0-5])$'
+  condition: 1 of selection*
+level: medium
+falsepositives:
+  - Legitimate applications using non-standard ports
+  - Development and testing environments

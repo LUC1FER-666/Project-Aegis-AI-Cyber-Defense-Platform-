@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 7%;
+    --card-foreground: 213 31% 91%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 4%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 216 34% 17%;
+    --destructive: 0 63% 31%;
+    --ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
+
+/* Severity badge colors */
+.severity-critical { @apply bg-red-500/20 text-red-400 border border-red-500/30; }
+.severity-high     { @apply bg-orange-500/20 text-orange-400 border border-orange-500/30; }
+.severity-medium   { @apply bg-yellow-500/20 text-yellow-400 border border-yellow-500/30; }
+.severity-low      { @apply bg-blue-500/20 text-blue-400 border border-blue-500/30; }
+.severity-info     { @apply bg-gray-500/20 text-gray-400 border border-gray-500/30; }
+
+/* Status indicators */
+.status-dot-active   { @apply w-2 h-2 rounded-full bg-green-400 animate-pulse; }
+.status-dot-inactive { @apply w-2 h-2 rounded-full bg-gray-500; }
+.status-dot-alert    { @apply w-2 h-2 rounded-full bg-red-400 animate-ping; }

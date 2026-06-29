@@ -1,0 +1,31 @@
+title: Suspicious Scheduled Task Creation
+id: b3a3f3a1-7f2a-4d5c-8e9f-1234567890ab
+status: experimental
+description: Detects creation of scheduled tasks with suspicious characteristics commonly used for persistence
+author: Aegis AI
+date: 2024/01/01
+tags:
+  - attack.t1053.005
+  - attack.persistence
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_schtasks:
+    CommandLine|contains: 'schtasks'
+  selection_create:
+    CommandLine|contains:
+      - '/create'
+      - '-create'
+  selection_suspicious:
+    CommandLine|contains:
+      - 'powershell'
+      - 'cmd.exe'
+      - 'wscript'
+      - 'cscript'
+      - 'mshta'
+      - 'rundll32'
+  condition: selection_schtasks and selection_create and selection_suspicious
+level: high
+falsepositives:
+  - Legitimate software installation creating scheduled tasks
